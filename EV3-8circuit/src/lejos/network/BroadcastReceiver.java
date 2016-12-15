@@ -45,6 +45,7 @@ public class BroadcastReceiver implements AutoCloseable {
 	/**
 	 * Close the broadcast receiver
 	 */
+	@Override
 	public void close() {
 		this.runnable.stop();
 		this.socket.close();

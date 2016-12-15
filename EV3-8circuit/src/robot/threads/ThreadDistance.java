@@ -5,14 +5,15 @@ import robot.RobotControl;
 
 public class ThreadDistance implements Runnable {
 
-	RobotControl control;
-	float distance = 0;
+	private RobotControl control;
+	private float distance = 0;
 	
 
 	public ThreadDistance(RobotControl control){
 		this.control = control;
 	}
 
+	@Override
 	public void run(){
 		while(true){
 			distance = control.distance();

@@ -37,6 +37,7 @@ public class BroadcastManager implements AutoCloseable {
 	/**
 	 * Close the broadcast manager
 	 */
+	@Override
 	public void close() {
 		this.socket.close();
 	}

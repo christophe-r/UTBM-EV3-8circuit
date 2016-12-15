@@ -7,13 +7,11 @@ public class RobotState {
 	private float speed;
 	
 	
-	
 	public RobotState(String name, float position, float speed) {
 		this.name = name;
 		this.position = position;
 		this.speed = speed;
 	}
-	
 	
 	public String getName() {
 		return name;
@@ -33,8 +31,6 @@ public class RobotState {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
-	
-	
 	
 	
 }

@@ -9,12 +9,12 @@ import slave.ThreadSlave;
 
 public class ThreadPIDFollowing implements Runnable {
 
-	RobotControl control;
-	ThreadSlave threadSlave;
-	ThreadUpdateColor threadColor;
-	ThreadDistance threadDistance;
+	private RobotControl control;
+	private ThreadSlave threadSlave;
+	private ThreadUpdateColor threadColor;
+	private ThreadDistance threadDistance;
 
-	float averageSpeed = Params.averageSpeed;
+	private float averageSpeed = Params.averageSpeed;
 
 	public ThreadPIDFollowing(RobotControl control, ThreadSlave threadSlave, ThreadUpdateColor threadColor, ThreadDistance threadDistance){
 		this.control = control;
@@ -23,6 +23,7 @@ public class ThreadPIDFollowing implements Runnable {
 		this.threadDistance = threadDistance;
 	}
 
+	@Override
 	public void run(){
 
 		float blue = Params.blueColor;

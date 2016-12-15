@@ -12,17 +12,17 @@ import robot.utils.Params;
 
 public class RobotControl {
 
-	EV3LargeRegulatedMotor motorLeft;
-	EV3LargeRegulatedMotor motorRight;
+	private EV3LargeRegulatedMotor motorLeft;
+	private EV3LargeRegulatedMotor motorRight;
 	
-	EV3UltrasonicSensor sensorDistance;
-	SampleProvider distance;
+	private EV3UltrasonicSensor sensorDistance;
+	private SampleProvider distance;
 	
-	EV3ColorSensor sensorColor;
-	SampleProvider color;
+	private EV3ColorSensor sensorColor;
+	private SampleProvider color;
 	
-	float maxSpeed;
-	String name;
+	private float maxSpeed;
+	private String name;
 	
 	boolean allowed = true;
 	

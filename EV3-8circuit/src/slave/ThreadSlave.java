@@ -18,7 +18,7 @@ import robot.utils.Params;
 
 public class ThreadSlave implements Runnable {
 
-	RobotControl control;
+	private RobotControl control;
 
 	private CrossList crossList = new CrossList();
 	
@@ -30,6 +30,7 @@ public class ThreadSlave implements Runnable {
 		this.control = control;
 	}
 
+	@Override
 	public void run(){
 		try {
 			BroadcastReceiver.getInstance().addListener(new BroadcastListener() {

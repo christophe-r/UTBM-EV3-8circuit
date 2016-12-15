@@ -5,11 +5,11 @@ public class MessageBuilder {
 	
 	//String msg = "SLAVE/"+control.getName()+"/"+request.toInt()+"/"+position+"/"+speed;
 	
-	String robotType;
-	String name;
-	Message message;
-	float position;
-	float speed;
+	private String robotType;
+	private String name;
+	private Message message;
+	private float position;
+	private float speed;
 	
 	public MessageBuilder(String robotType, String name, Message message, float position, float speed) {
 		this.robotType = robotType;
@@ -19,7 +19,7 @@ public class MessageBuilder {
 		this.speed = speed;
 	}
 	
-	
+	@Override
 	public String toString(){
 		return robotType+"/"+name+"/"+message.toInt()+"/"+position+"/"+speed;
 	}

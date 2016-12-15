@@ -18,7 +18,6 @@ public class CrossList {
 		crossList.add(robot);
 	}
 	
-	
 	public void clear(){
 		crossList.clear();
 	}
@@ -67,7 +66,7 @@ public class CrossList {
 		return Params.initPosition;
 	}
 	
-	
+	@Override
 	public String toString(){
 		String str = "";
 		for(RobotState robot : crossList){

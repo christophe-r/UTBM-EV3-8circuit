@@ -5,8 +5,8 @@ import robot.RobotControl;
 
 public class ThreadUpdateColor implements Runnable {
 
-	RobotControl control;
-	float color = 0;
+	private RobotControl control;
+	private float color = 0;
 	
 	private boolean flagOrange = false;
 
@@ -14,6 +14,7 @@ public class ThreadUpdateColor implements Runnable {
 		this.control = control;
 	}
 
+	@Override
 	public void run(){
 		while(true){
 			synchronized (this) {
