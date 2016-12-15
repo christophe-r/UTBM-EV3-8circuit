@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TR54 Server</string>
+    <string name="dialog_title_disabled_ap">Wifi tethering disabled</string>
+    <string name="dialog_message_disabled_ap">You should first enable Wifi tethering before starting the app.</string>
+    <string name="close">Close</string>
+    <string name="starting_server">Starting server...</string>
+    <string name="server_started">Server started.</string>
+    <string name="stop_server">Stop server</string>
+    <string name="start_server">Start server</string>
+    <string name="stopping_server">Stopping server...</string>
+    <string name="server_stopped">Server stopped.</string>
+</resources>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.utbm.tr54.app.MainActivity"
+    android:padding="5sp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true">
+
+        <Button
+            android:text="Start server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_start_stop"
+            android:drawableLeft="@drawable/ic_play_arrow_black"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="6sp"
+                android:layout_marginRight="3sp"
+                android:layout_marginBottom="3sp"
+                android:layout_marginLeft="3sp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="7sp">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="Out"
+                            android:layout_width="94dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/label_out"
+                            android:textSize="20sp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:text="0"
+                            android:layout_width="54dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/label_nb_out"
+                            android:textSize="24sp"
+                            android:gravity="right"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:paddingRight="3sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="-"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/label_list_out"
+                        android:gravity="center_horizontal"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="3sp"
+                android:layout_marginRight="3sp"
+                android:layout_marginBottom="3sp"
+                android:layout_marginTop="6sp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="7sp">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="0"
+                            android:layout_width="57dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/label_nb_crossing"
+                            android:textSize="24sp"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:paddingLeft="3sp" />
+
+                        <TextView
+                            android:text="Crossing"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/label_crossing"
+                            android:gravity="right"
+                            android:textSize="20sp"
+                            android:layout_width="107dp"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="-"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/label_list_cross"
+
+                        android:gravity="center_horizontal"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3sp"
+            android:layout_marginLeft="3sp"
+            android:layout_marginRight="3sp"
+            android:layout_marginBottom="3sp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/server_log_scrollview"
+                android:elevation="0dp"
+                android:padding="6sp">
+
+                <TextView
+                    android:text="Ready to start"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/server_logs"
+                    android:scrollbars="vertical"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black" />
+
+            </ScrollView>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>
