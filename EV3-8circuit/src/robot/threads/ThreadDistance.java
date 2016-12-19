@@ -8,7 +8,10 @@ public class ThreadDistance implements Runnable {
 	private RobotControl control;
 	private float distance = 0;
 	
-
+	/**
+	 * Constructor for the thread distance
+	 * @param control The robot 
+	 */
 	public ThreadDistance(RobotControl control){
 		this.control = control;
 	}
@@ -22,6 +25,10 @@ public class ThreadDistance implements Runnable {
 		}
 	}  
 	
+	/**
+	 * Gets the current distance
+	 * @return the distance
+	 */
 	public float getDistance(){
 		return this.distance;
 	}

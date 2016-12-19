@@ -1,5 +1,9 @@
 package robot.utils;
 
+
+/**
+ * Enum defining the different possible states for a led on the robot
+ */
 public enum LedColor {	
 
 	/*
@@ -27,6 +31,10 @@ public enum LedColor {
         this.color = color;
     }
     
+    /**
+	 * Returns the state of the led as an integer
+	 * @return an integer equal to a state for a given led
+	 */
     public int toInt(){
     	return this.color;
     }

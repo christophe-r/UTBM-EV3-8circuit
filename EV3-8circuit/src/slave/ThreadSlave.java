@@ -15,7 +15,9 @@ import robot.utils.Params;
 
 // Message Analyzer
 
-
+/**
+ * Thread used to manage the messages and the behaviour of the robot
+ */
 public class ThreadSlave implements Runnable {
 
 	private RobotControl control;
@@ -53,7 +55,10 @@ public class ThreadSlave implements Runnable {
 		}
 	}
 	
-
+	/**
+	 * Used when a message is received from the server
+	 * @param messageElements message received
+	 */
 	public void onServerMessageReceived(String[] messageElements){
 
 		String serverCrossList = messageElements[2];
@@ -106,7 +111,10 @@ public class ThreadSlave implements Runnable {
 		return this.averageSpeed;
 	}
 
-
+	/**
+	 * Manages the color of the led depending of the position of the robot
+	 * @param pos the position of the robot in the cross list
+	 */
 	private void updateLedColor(int pos){
 		LedColor newLed;
 		
@@ -126,11 +134,21 @@ public class ThreadSlave implements Runnable {
 		}
 
 	}
-
+	
+	/**
+	 * Used to send a message
+	 * @param request the type of the request
+	 */
 	public void sendQuery(Message request){
 		sendMsg(request, control.getTachoCount(), control.getLinearSpeed());
 	}
-
+	
+	/**
+	 * Sends the message after building it
+	 * @param request the type of message
+	 * @param position the current position of the robot
+	 * @param speed the current speed of the robot
+	 */
 	public void sendMsg(Message request, float position, float speed){
 
 		MessageBuilder messageBuilder = new MessageBuilder("SLAVE", control.getName(), request, position, speed);
@@ -143,10 +161,4 @@ public class ThreadSlave implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
-	public float computeOptimizedSpeed(){
-		return 0;
-	}
-
-
 }

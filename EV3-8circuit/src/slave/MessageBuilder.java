@@ -1,5 +1,8 @@
 package slave;
 
+/**
+ * Class used to build the messages to send
+ */
 public class MessageBuilder {
 
 	
@@ -11,6 +14,9 @@ public class MessageBuilder {
 	private float position;
 	private float speed;
 	
+	/**
+	 * MessageBuilder constructor
+	 */
 	public MessageBuilder(String robotType, String name, Message message, float position, float speed) {
 		this.robotType = robotType;
 		this.name = name;
@@ -19,6 +25,10 @@ public class MessageBuilder {
 		this.speed = speed;
 	}
 	
+	/**
+	 * Builds the message to send with the parameters given to the constructor
+	 * @return the message ready to be sent
+	 */
 	@Override
 	public String toString(){
 		return robotType+"/"+name+"/"+message.toInt()+"/"+position+"/"+speed;

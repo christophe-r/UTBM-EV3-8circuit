@@ -15,7 +15,14 @@ public class ThreadPIDFollowing implements Runnable {
 	private ThreadDistance threadDistance;
 
 	private float averageSpeed = Params.averageSpeed;
-
+	
+	/**
+	 * Constructor for the thread used to follow the circuit
+	 * @param control The robot
+	 * @param threadSlave The thread used for communication and sequencing
+	 * @param threadColor The thread used for color recognition
+	 * @param threadDistance The thread used to get the current distance
+	 */
 	public ThreadPIDFollowing(RobotControl control, ThreadSlave threadSlave, ThreadUpdateColor threadColor, ThreadDistance threadDistance){
 		this.control = control;
 		this.threadSlave = threadSlave;

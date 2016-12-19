@@ -4,6 +4,9 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
 
+/**
+ * Params used by the robot
+ */
 public class Params {
 	// Robot	
 	public static final int distanceWheels = 108; // mm
