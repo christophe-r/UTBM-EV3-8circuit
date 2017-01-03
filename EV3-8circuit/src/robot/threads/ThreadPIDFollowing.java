@@ -15,7 +15,7 @@ public class ThreadPIDFollowing implements Runnable {
 	private ThreadDistance threadDistance;
 
 	private float averageSpeed = Params.averageSpeed;
-	
+
 	/**
 	 * Constructor for the thread used to follow the circuit
 	 * @param control The robot
@@ -39,7 +39,7 @@ public class ThreadPIDFollowing implements Runnable {
 		float currentDistance = 0f;
 
 		float midpoint = blue;
-		float kp = 0.9f, ki = 0.04f, kd = 0; // kp: + violent, ki: precision, kd: -violent
+		float kp = 0.9f, ki = 0.04f, kd = 0; // kp: harder, ki: accuracy, kd: smoother
 
 		float lastError = 0;
 		float error = 0, integral = 0, derivative = 0, correction = 0;
@@ -51,23 +51,22 @@ public class ThreadPIDFollowing implements Runnable {
 
 				if( threadColor.getFlagOrange()) {
 					//Button.LEDPattern(LedColor.F_BLINK_RED.toInt());
+
 					threadSlave.sendQuery(Message.REQUEST_CROSS);
 					control.resetTachoCount();
 				}
 			}
 
 			LCD.drawString("Tacho : " +control.getTachoCount(), 0, 4);
-			
-			
+
 			currentDistance = threadDistance.getDistance();
 
 			LCD.drawString("Dist: "+currentDistance, 0, 3);
-			
-			//float currentTachoCount = control.getTachoCount();
+
 
 			if( control.getTachoCount() < Params.outTacho ){
 				threadSlave.sendQuery(Message.REQUEST_UPDATE);
-				
+
 			} else if (control.getTachoCount() >= Params.outTacho && control.getTachoCount() < (Params.outTacho + Params.outSpamTacho) ){
 				threadSlave.sendQuery(Message.REQUEST_OUT); 
 				control.setAllowed(false);
@@ -75,7 +74,7 @@ public class ThreadPIDFollowing implements Runnable {
 
 			error = midpoint - currentColor;
 
-			if(error > 0){ // symétrie pour le passage du bleu au noir et bleu au blanc
+			if(error > 0){ // to be centered on the blue line
 				error *= 1.2;
 			}
 
@@ -83,38 +82,54 @@ public class ThreadPIDFollowing implements Runnable {
 			derivative = error - lastError;
 
 			correction = kp * error + ki * integral + kd * derivative;
-
-			if( currentDistance > Params.limitDistanceSensor 
-					&& (control.isAllowed()
-							|| (!control.isAllowed() 
-									&& (control.getTachoCount() > Params.outTacho || control.getTachoCount() < Params.crossTacho)) ) ){
+			
+			if( currentDistance > Params.limitDistanceSensor ){ // nothing in front of this robot
 
 				synchronized(threadSlave){
-					averageSpeed = (float) Math.min((averageSpeed + 0.01) * Params.fasterFactor, threadSlave.getAverageSpeed());
 
-					control.setSpeed(Params.motorRight, averageSpeed+correction);
-					control.setSpeed(Params.motorLeft, averageSpeed-correction);
+					if( (control.getTachoCount() >= 0 && control.getTachoCount() < Params.outTacho) ){ // in crossing area
+						if( control.isAllowed() && threadSlave.isCrossing() ){ // the robot knows that the server knows that the robot is in the crossing area 
+							smoothAccelerate(correction);
+						} else {
+							smoothStop(correction);
+						}
+					} else { // out of crossing area
+						smoothAccelerate(correction);
+					}
 					
-					control.forward();
 				}
 
 			} else {
-
-				if( averageSpeed > Params.averageSpeed/10.0f ){
-					averageSpeed *= Params.slowerFactor;
-
-					control.setSpeed(Params.motorRight, averageSpeed+correction);
-					control.setSpeed(Params.motorLeft, averageSpeed-correction);
-
-					control.forward();
-				} else {
-					control.stop();
-				}
-
+				smoothStop(correction);
 			}
-			lastError = error;
 
+			lastError = error;
 			Delay.msDelay(11);
+
+		}		
+	}
+
+	private void smoothAccelerate(float correction){
+		averageSpeed = (float) Math.min((averageSpeed + 0.01) * Params.fasterFactor, threadSlave.getAverageSpeed());
+
+		control.setSpeed(Params.motorRight, averageSpeed+correction);
+		control.setSpeed(Params.motorLeft, averageSpeed-correction);
+
+		control.forward();
+	}
+
+	private void smoothStop(float correction){
+		if( averageSpeed > Params.averageSpeed/10.0f ){
+			averageSpeed *= Params.slowerFactor;
+
+			control.setSpeed(Params.motorRight, averageSpeed+correction);
+			control.setSpeed(Params.motorLeft, averageSpeed-correction);
+
+			control.forward();
+		} else {
+			control.stop();
 		}
-	}   
+	}
+
 }
+

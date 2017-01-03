@@ -11,7 +11,6 @@ import slave.ThreadSlave;
 public class MainLauncher {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		Button.LEDPattern(LedColor.F_BLINK_RED.toInt());
 
@@ -40,8 +39,6 @@ public class MainLauncher {
 		
 		ThreadPIDFollowing threadPID = new ThreadPIDFollowing(control, threadSlave, threadColor, threadDistance);
 		new Thread(threadPID).start();
-
-
 
 
 	}

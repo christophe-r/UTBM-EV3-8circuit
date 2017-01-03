@@ -24,10 +24,10 @@ public class ThreadSlave implements Runnable {
 
 	private CrossList crossList = new CrossList();
 	
-	//private int pos = Params.initPosition;
 	private float averageSpeed = Params.averageSpeed;
 	private LedColor currentLed = LedColor.NOTHING;
-
+	private boolean isCrossing = false;
+	
 	public ThreadSlave(RobotControl control){
 		this.control = control;
 	}
@@ -75,16 +75,28 @@ public class ThreadSlave implements Runnable {
 		LCD.drawString("POS : " + pos, 0, 5);
 		
 		updateLedColor(pos);
+		
+		if( pos > -1 ){ // if robot is in crossing section
+			isCrossing = true; // 0 1 2 3
+		} else {
+			isCrossing = false; // -1
+		}
 
-		if(pos < 1 ){							
-			control.setAllowed(true);
-			setAverageSpeed(Params.averageSpeed);
+		if(pos < 1 ){ // -1 0
+			
+			control.setAllowed(false);
+			
+			if( isCrossing ){
+				control.setAllowed(true);
+				setAverageSpeed(Params.averageSpeed);
+			}
+			
 			LCD.drawString("NO SYNC", 0, 6);
 			
 			//LCD.drawString("prev : noprev", 0, 7);
 			
-		} else {
-			if(control.getTachoCount() < Params.crossTacho){
+		} else { // 1 2 3
+			if(control.getTachoCount() < Params.crossTacho ){
 				control.setAllowed(true);
 				
 				float getNewSpeed = (crossList.get(pos-1).getPosition() / Params.outTacho) * crossList.get(pos-1).getSpeed();
@@ -102,6 +114,13 @@ public class ThreadSlave implements Runnable {
 		
 	}
 	
+	/**
+	 * The robot knows that the server knows that the robot is in the crossing area 
+	 * @return server authorization
+	 */
+	public boolean isCrossing(){
+		return isCrossing;
+	}
 
 	public void setAverageSpeed(float speed){
 		this.averageSpeed = speed;
@@ -156,8 +175,10 @@ public class ThreadSlave implements Runnable {
 		try {
 			BroadcastManager.getInstance().broadcast(messageBuilder.toString().getBytes());
 		} catch (SocketException e) {
+			//LCD.drawString(e.getMessage(), 0, 0);
 			e.printStackTrace();
 		} catch (IOException e) {
+			//LCD.drawString(e.getMessage(), 0, 0);
 			e.printStackTrace();
 		}
 	}
